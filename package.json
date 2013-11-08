@@ -14,10 +14,13 @@
   ],
   "author": "Andreas Hultgren",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "async": "~0.2.9"
+  },
   "devDependencies": {
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "should": "~2.0.2"
   }
 }
