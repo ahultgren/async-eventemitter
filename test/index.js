@@ -52,4 +52,33 @@ describe('emit()', function () {
       done();
     });
   });
+
+  it('should emit with no argument', function (done) {
+    events.on('no-arg', function (e, next) {
+      (typeof e).should.equal('undefined');
+      next();
+      done();
+    });
+
+    events.emit('no-arg');
+  });
+
+  it('should emit with only data argument', function (done) {
+    events.on('data-only', function (e, next) {
+      e.should.equal(1);
+      next();
+      done();
+    });
+
+    events.emit('data-only', 1);
+  });
+
+  it('should emit with only callback argument', function (done) {
+    events.on('function-only', function (e, next) {
+      (typeof e).should.equal('undefined');
+      next();
+    });
+
+    events.emit('function-only', done);
+  });
 });
