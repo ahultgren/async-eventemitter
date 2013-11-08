@@ -92,3 +92,20 @@ describe('eventlisteners', function () {
     events.emit('sync', 1, done);
   });
 });
+
+describe('next(err)', function () {
+  it('should abort the callback chain', function (done) {
+    events.on('err', function (e, next) {
+      next(1);
+    });
+
+    events.on('err', function (e, next) {
+      throw('Expected this function to not be called');
+    });
+
+    events.emit('err', function (err) {
+      err.should.equal(1);
+      done();
+    });
+  });
+});
