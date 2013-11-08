@@ -82,3 +82,13 @@ describe('emit()', function () {
     events.emit('function-only', done);
   });
 });
+
+describe('eventlisteners', function () {
+  it('should be synchronous if no next-argument specified', function (done) {
+    events.on('sync', function (e) {
+      e.should.equal(1);
+    });
+
+    events.emit('sync', 1, done);
+  });
+});
