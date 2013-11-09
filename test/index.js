@@ -178,8 +178,8 @@ describe('once()', function () {
 describe('removeAllListeners', function () {
   var events = new AsyncEventEmitter();
 
-  events.on('test', function(){});
-  events.on('test2', function(){});
+  events.on('test', function () {});
+  events.on('test2', function () {});
 
   describe('(event)', function () {
     it('should remove all event listeners for event', function () {
@@ -194,6 +194,43 @@ describe('removeAllListeners', function () {
       events._events.should.have.property('test2');
       events.removeAllListeners();
       events._events.should.not.have.property('test2');
+    });
+  });
+});
+
+describe('listeners()', function () {
+  var events = new AsyncEventEmitter();
+
+  function test () {}
+
+  events.on('test', test);
+
+  it('should return all listeners for the specified event', function () {
+    var listeners = events.listeners('test');
+
+    listeners.should.have.property('length').and.equal(1);
+    listeners[0].should.equal(test);
+  });
+});
+
+describe('all overriden methods', function () {
+  var events = new AsyncEventEmitter();
+
+  describe('(.on())', function () {
+    it('should be chainable', function () {
+      events.on('test', function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
+
+  describe('(.once())', function () {
+    it('should be chainable', function () {
+      events.once('test', function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
+
+  describe('(.emit())', function () {
+    it('should be chainable', function () {
+      events.emit('test').should.be.instanceOf(AsyncEventEmitter);
     });
   });
 });
