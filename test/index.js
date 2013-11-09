@@ -174,3 +174,26 @@ describe('once()', function () {
     });
   });
 });
+
+describe('removeAllListeners', function () {
+  var events = new AsyncEventEmitter();
+
+  events.on('test', function(){});
+  events.on('test2', function(){});
+
+  describe('(event)', function () {
+    it('should remove all event listeners for event', function () {
+      events._events.should.have.property('test');
+      events.removeAllListeners('test');
+      events._events.should.not.have.property('test');
+    });
+  });
+
+  describe('()', function () {
+    it('should remove all event listeners for all events', function () {
+      events._events.should.have.property('test2');
+      events.removeAllListeners();
+      events._events.should.not.have.property('test2');
+    });
+  });
+});
