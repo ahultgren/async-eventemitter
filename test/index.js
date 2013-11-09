@@ -109,3 +109,68 @@ describe('next(err)', function () {
     });
   });
 });
+
+describe('newListener-events', function () {
+  // Use separate test-object to not break other tests
+  var events = new AsyncEventEmitter();
+
+  it('should supply the event listener as e and not next', function (done) {
+    function newListener (e) {
+      e.should.have.property('event').and.equal('newListener-test');
+      e.should.have.property('fn').and.equal(test);
+      done();
+    }
+
+    function test () {}
+
+    events.on('newListener', newListener);
+    events.on('newListener-test', test);
+  });
+});
+
+describe('removeListener-events', function () {
+  var events = new AsyncEventEmitter();
+
+  it('should supply the event listener as e and not next', function (done) {
+    function removeListener (e) {
+      e.should.have.property('event').and.equal('test');
+      e.should.have.property('fn').and.equal(test);
+      done();
+    }
+
+    function test () {}
+
+    events.on('removeListener', removeListener);
+    events.on('test', test);
+    events.removeListener('test', test);
+  });
+});
+
+describe('once()', function () {
+  var i = 0;
+
+  function listener1 (e, callback) {
+    setTimeout(function () {
+      i++;
+      callback();
+    });
+  }
+
+  it('should register eventlisteners', function () {
+    events.once('test-once', listener1);
+    events._events.should.have.property('test-once');
+  });
+
+  describe('eventlisteners', function () {
+    it('should only be called once', function (done) {
+      events.emit('test-once', function () {
+        i.should.equal(1);
+
+        events.emit('test-once', function () {
+          i.should.equal(1);
+          done();
+        });
+      });
+    });
+  });
+});
