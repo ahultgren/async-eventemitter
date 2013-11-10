@@ -234,3 +234,26 @@ describe('all overriden methods', function () {
     });
   });
 });
+
+describe('all added methods', function () {
+  var events = new AsyncEventEmitter();
+
+  describe('(.first())', function () {
+    it('should be chainable', function () {
+      events.first('test', function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
+});
+
+describe('first()', function () {
+  var events = new AsyncEventEmitter();
+
+  function test () {}
+
+  it('should add an event listener first in the chain', function () {
+    events.on('test', function () {});
+    events.first('test', test);
+    events._events.test[0].should.equal(test);
+    events._events.test.length.should.equal(2);
+  });
+});

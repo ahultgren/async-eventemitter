@@ -71,14 +71,15 @@ nothing new here.
 Executes all listeners for the event in order with the supplied data argument.
 The optional callback is called when all of the listeners are done.
 
+### `.first(event, new)`
+
+Adds a listener to the beginning of the listeners array for the specified event.
 
 ## To do
 
 The following are features that will be necessary now that the order of event
 listeners really matters:
 
-* .first(event, new)
-  * should unshift an event listener
 * .before(event, target, new)
   * should insert an event listener before the target
 * .after(event, target, new)
