@@ -234,3 +234,115 @@ describe('all overriden methods', function () {
     });
   });
 });
+
+describe('all added methods', function () {
+  var events = new AsyncEventEmitter();
+
+  describe('(.first())', function () {
+    it('should be chainable', function () {
+      events.first('test', function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
+
+  describe('(.at())', function () {
+    it('should be chainable', function () {
+      events.at('test', 1, function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
+
+  describe('(.before())', function () {
+    it('should be chainable', function () {
+      events.before('test', function () {}, function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
+
+  describe('(.after())', function () {
+    it('should be chainable', function () {
+      events.after('test', function () {}, function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
+});
+
+describe('first()', function () {
+  var events = new AsyncEventEmitter();
+
+  function test () {}
+
+  it('should add an event listener first in the chain', function () {
+    events.on('test', function () {});
+    events.first('test', test);
+    events._events.test[0].should.equal(test);
+    events._events.test.length.should.equal(2);
+  });
+});
+
+describe('at()', function () {
+  var events = new AsyncEventEmitter();
+
+  function test () {}
+
+  it('should insert an event listener at the specified index', function () {
+    events.on('test', function () {});
+    events.on('test', function () {});
+    events.on('test', function () {});
+    events.at('test', 2, test);
+
+    events._events.test[2].should.equal(test);
+    events._events.test.length.should.equal(4);
+  });
+
+  it('should push a listener if the index is larger than the length', function () {
+    events.at('test', 10, test);
+
+    events._events.test[events._events.test.length - 1].should.equal(test);
+    events._events.test.length.should.equal(5);
+  });
+});
+
+describe('before()', function () {
+  var events = new AsyncEventEmitter();
+
+  function target () {}
+  function listener () {}
+
+  it('should insert a listener before the specified target', function () {
+    events.on('test', function () {});
+    events.on('test', target);
+    events.before('test', target, listener);
+
+    events._events.test[1].should.equal(listener);
+    events._events.test.length.should.equal(3);
+  });
+
+  it('should push a listener if the target is not found', function () {
+    events.on('test2', function () {});
+    events.before('test2', target, listener);
+
+    events._events.test2[1].should.equal(listener);
+    events._events.test2.length.should.equal(2);
+  });
+});
+
+describe('after()', function () {
+  var events = new AsyncEventEmitter();
+
+  function target () {}
+  function listener () {}
+
+  it('should insert a listener after the specified target', function () {
+    events.on('test', function () {});
+    events.on('test', target);
+    events.after('test', target, listener);
+
+    events._events.test[2].should.equal(listener);
+    events._events.test.length.should.equal(3);
+  });
+
+  it('should push a listener if the target is not found', function () {
+    events.on('test2', function () {});
+    events.after('test2', target, listener);
+
+    events._events.test2[1].should.equal(listener);
+    events._events.test2.length.should.equal(2);
+  });
+});
