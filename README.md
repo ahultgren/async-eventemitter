@@ -85,14 +85,10 @@ event.
 Adds a listener before the target listener in the listeners array for the
 specified event.
 
+### `.after(event, target, listener)`
 
-## To do
-
-The following are features that will be necessary now that the order of event
-listeners really matters:
-
-* .after(event, target, new)
-  * should insert an event listener after the target
+Adds a listener after the target listener in the listeners array for the
+specified event.
 
 
 ## Contribution
