@@ -75,6 +75,12 @@ The optional callback is called when all of the listeners are done.
 
 Adds a listener to the beginning of the listeners array for the specified event.
 
+### `.at(event, index, new)`
+
+Adds a listener at the specified index in the listeners array for the specified
+event.
+
+
 ## To do
 
 The following are features that will be necessary now that the order of event
@@ -84,8 +90,6 @@ listeners really matters:
   * should insert an event listener before the target
 * .after(event, target, new)
   * should insert an event listener after the target
-* .at(event, index, new)
-  * should insert an event listener at the specified index
 
 
 ## Contribution

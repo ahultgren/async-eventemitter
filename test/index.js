@@ -243,6 +243,12 @@ describe('all added methods', function () {
       events.first('test', function () {}).should.be.instanceOf(AsyncEventEmitter);
     });
   });
+
+  describe('(.at())', function () {
+    it('should be chainable', function () {
+      events.at('test', 1, function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
 });
 
 describe('first()', function () {
@@ -255,5 +261,28 @@ describe('first()', function () {
     events.first('test', test);
     events._events.test[0].should.equal(test);
     events._events.test.length.should.equal(2);
+  });
+});
+
+describe('at()', function () {
+  var events = new AsyncEventEmitter();
+
+  function test () {}
+
+  it('should insert an event listener at the specified index', function () {
+    events.on('test', function () {});
+    events.on('test', function () {});
+    events.on('test', function () {});
+    events.at('test', 2, test);
+
+    events._events.test[2].should.equal(test);
+    events._events.test.length.should.equal(4);
+  });
+
+  it('should push a listener if the index is larger than the length', function () {
+    events.at('test', 10, test);
+
+    events._events.test[events._events.test.length - 1].should.equal(test);
+    events._events.test.length.should.equal(5);
   });
 });
