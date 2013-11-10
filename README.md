@@ -75,10 +75,15 @@ The optional callback is called when all of the listeners are done.
 
 Adds a listener to the beginning of the listeners array for the specified event.
 
-### `.at(event, index, new)`
+### `.at(event, index, listener)`
 
 Adds a listener at the specified index in the listeners array for the specified
 event.
+
+### `.before(event, target, listener)`
+
+Adds a listener before the target listener in the listeners array for the
+specified event.
 
 
 ## To do
@@ -86,8 +91,6 @@ event.
 The following are features that will be necessary now that the order of event
 listeners really matters:
 
-* .before(event, target, new)
-  * should insert an event listener before the target
 * .after(event, target, new)
   * should insert an event listener after the target
 

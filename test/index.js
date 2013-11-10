@@ -249,6 +249,12 @@ describe('all added methods', function () {
       events.at('test', 1, function () {}).should.be.instanceOf(AsyncEventEmitter);
     });
   });
+
+  describe('(.before())', function () {
+    it('should be chainable', function () {
+      events.before('test', function () {}, function () {}).should.be.instanceOf(AsyncEventEmitter);
+    });
+  });
 });
 
 describe('first()', function () {
@@ -284,5 +290,29 @@ describe('at()', function () {
 
     events._events.test[events._events.test.length - 1].should.equal(test);
     events._events.test.length.should.equal(5);
+  });
+});
+
+describe('before()', function () {
+  var events = new AsyncEventEmitter();
+
+  function target () {}
+  function listener () {}
+
+  it('should insert a listener before the specified target', function () {
+    events.on('test', function () {});
+    events.on('test', target);
+    events.before('test', target, listener);
+
+    events._events.test[1].should.equal(listener);
+    events._events.test.length.should.equal(3);
+  });
+
+  it('should push a listener if the target is not found', function () {
+    events.on('test2', function () {});
+    events.before('test2', target, listener);
+
+    events._events.test2[1].should.equal(listener);
+    events._events.test2.length.should.equal(2);
   });
 });
