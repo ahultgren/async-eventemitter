@@ -1,6 +1,6 @@
 {
   "name": "async-eventemitter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Just like EventEmitter, but with support for callbacks and interuption of the listener-chain",
   "main": "index.js",
   "scripts": {
