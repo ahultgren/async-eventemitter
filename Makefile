@@ -1,6 +1,6 @@
 test:
 	grunt jshint:sloppy
-	mocha test/*.js
+	./node_modules/.bin/mocha test/*.js
 	grunt jshint:strict
 
 .PHONY: test
