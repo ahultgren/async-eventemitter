@@ -15,6 +15,10 @@ describe('An instance', function () {
 
 describe('on()', function () {
   function listener1 (e, callback) {
+    // Ensure context is kept
+    /* jshint validthis:true */
+    this.should.equal(events);
+
     setTimeout(function () {
       i++;
 
