@@ -350,3 +350,22 @@ describe('after()', function () {
     events._events.test2.length.should.equal(2);
   });
 });
+
+describe('Sync listener returning an Error', function () {
+  function err () {
+    throw new Error('Die!');
+  }
+
+  it('should abort the listener chain', function (done) {
+    events.on('errorTest', err);
+    events.on('errorTest', function () {
+      // Just make sure this is never run
+      true.should.equal(false);
+    });
+
+    events.emit('errorTest', function (err) {
+      err.should.be.instanceOf(Error);
+      done();
+    });
+  });
+});
