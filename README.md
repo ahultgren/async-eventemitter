@@ -52,9 +52,11 @@ differences which should be noted.
   the event listener has an arity of two or more (eg `function(e, next){}`).
 * Event listeners with an arity of one or zero (eg without a callback argument
   specified) will be treated as synchronous.
-* Even if all event listeners are synchronous, the will still be executed
+* Even if all event listeners are synchronous, they will still be executed
   asynchronously (through setImmediate) and thus code suceeding `.emit()` will
   be executed before any event listeners.
+* Interupt the callback chain in async listeners by calling the callback with
+  the error as the first parameter; in sync listeners by throwing an Error.
 
 
 ## Usage
