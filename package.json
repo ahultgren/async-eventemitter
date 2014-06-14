@@ -18,10 +18,11 @@
     "async": "~0.2.9"
   },
   "devDependencies": {
+    "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.7.1",
     "grunt-contrib-watch": "~0.5.3",
-    "grunt": "~0.4.1",
-    "should": "~2.0.2",
-    "mocha": "~1.17.1"
+    "grunt-mocha-test": "^0.11.0",
+    "mocha": "~1.17.1",
+    "should": "~2.0.2"
   }
 }

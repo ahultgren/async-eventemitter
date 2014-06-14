@@ -44,16 +44,24 @@ module.exports = function(grunt) {
         }
       }
     },
+    mochaTest: {
+      options: {
+        globals: ['should']
+      },
+      all: { src: ['test/**/*.js'] }
+    },
     watch: {
-      files: ['<%= jshint.files.src %>'],
-      tasks: ['default']
+      files: ['**/*.js', '!**/node_modules/**'],
+      tasks: ['test']
     }
   });
 
   // npm tasks
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task.
-  grunt.registerTask('default', ['jshint', 'watch']);
+  grunt.registerTask('test', ['jshint:sloppy', 'mochaTest', 'jshint:strict']);
+  grunt.registerTask('default', ['test', 'watch']);
 };
