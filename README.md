@@ -64,7 +64,7 @@ differences which should be noted.
 ### Unchanged
 
 For `addListener() on() once() removeListener() removeAllListeners()
-setMaxListeners() listeners()` see the [EventEmitter docs](nodejs.org/api/events.html),
+setMaxListeners() listeners()` see the [EventEmitter docs](http://nodejs.org/api/events.html),
 nothing new here.
 
 
