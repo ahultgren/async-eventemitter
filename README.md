@@ -18,7 +18,7 @@ events.on('test', function (e, next) {
 
 events
   .on('test', function (e) {
-    // This is behaves a synchronous event listener (note the lack of a second
+    // This is a synchronous event listener (note the lack of a second
     // callback argument)
     console.log(e);
     // { data: 'data' }
