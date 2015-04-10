@@ -28,7 +28,7 @@ events
     next(new Error('You shall not pass'));
   });
 
-events.trigger('test', { data: 'data' }, function (err) {
+events.emit('test', { data: 'data' }, function (err) {
   // This is run after all of the event listeners are done
   console.log(err);
   // [Error: You shall not pass]
