@@ -15,7 +15,7 @@
   "author": "Andreas Hultgren",
   "license": "MIT",
   "dependencies": {
-    "async": "~0.2.9"
+    "async": "^2.4.0"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
